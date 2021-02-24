@@ -1,8 +1,7 @@
 import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { DataService } from './data.service';
-import { Node } from '../models/node.model';
-import { Tree } from '../models/tree.model';
+import { DUMMY_TREE } from '../models/tree.model';
 
 describe('DataService', () => {
   let dataService: DataService;
@@ -30,12 +29,10 @@ describe('DataService', () => {
   });
 
   it('should call the  GET API endpoind and return result of type Tree', () => {
-    const dummyResponseData: Node = { source: 'AGROSTAR', children :[{ source:'INHOUSE',children:[] },{ source:'AWAY',children:[] }] };
-    const dummyTree : Tree = { status: true, responseData: dummyResponseData, message: 'OK' };
     dataService.getData().subscribe(tree => {
       expect(tree.responseData.children.length).toBe(2);
-      expect(tree).toEqual(dummyTree);
+      expect(tree).toEqual(DUMMY_TREE);
     });
-    httpMock.expectOne(DATA_URL).flush(dummyTree);
+    httpMock.expectOne(DATA_URL).flush(DUMMY_TREE);
   });
 });
