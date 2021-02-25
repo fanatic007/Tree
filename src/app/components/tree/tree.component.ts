@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Node, DUMMY_RESPONSE_DATA } from "../../models/node.model";
 
 @Component({
@@ -6,13 +6,32 @@ import { Node, DUMMY_RESPONSE_DATA } from "../../models/node.model";
   templateUrl: './tree.component.html',
   styleUrls: ['./tree.component.scss']
 })
-export class TreeComponent implements OnInit {
+export class TreeComponent implements OnInit, OnChanges {
 
   @Input() node:Node;
-  
+  @Input() selectable:boolean = false;
+  @Input() collapsible:boolean = false;
+
+  list;  
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes.node && this.node){
+      this.addFields(this.node);
+    }
   }
 
+  ngOnInit(): void {
+    if(this.node){
+      this.addFields(this.node);
+    }
+  }
+
+  addFields(node) {
+    (!node['open']) && (node['open']=!this.collapsible);
+    (this.selectable && !node['selected']) && (node['selected']=false);
+    node.children.forEach(childNode => {
+      this.addFields(childNode);
+    });
+  };
 }
