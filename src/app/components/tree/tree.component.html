@@ -1,0 +1,10 @@
+<div *ngIf="node">
+  <ng-container *ngTemplateOutlet="treeViewList; context:{$implicit:[node]}"></ng-container>
+  <ng-template #treeViewList let-list>
+    <ul>
+       <li *ngFor="let node of list;let i = index">{{node.source}}<!-- <input [id]="node.source +'_'+ i" type="checkbox"/><label [for]="node.source +'_'+ i">{{node.source}}</label> -->
+         <ng-container *ngTemplateOutlet="treeViewList; context:{$implicit: node.children}"></ng-container>
+       </li>
+     </ul>
+  </ng-template>
+</div>

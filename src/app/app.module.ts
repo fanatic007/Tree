@@ -3,13 +3,16 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
+import { TreeModule } from './components/tree/tree.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent  
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule,
+    TreeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

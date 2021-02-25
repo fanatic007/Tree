@@ -19,6 +19,8 @@ describe('AppComponent', () => {
     fixture = TestBed.createComponent(AppComponent);
     app = fixture.componentInstance;
     dataService = TestBed.inject(DataService);
+    dataService.getData.and.returnValue(of( DUMMY_TREE ));
+    fixture.detectChanges();
   }));
 
   it('should create the app', () => {
@@ -38,8 +40,11 @@ describe('AppComponent', () => {
   });
 
   it(`should retrived data from endpoint and set to tree'`, () => {
-    dataService.getData.and.returnValue(of( DUMMY_TREE ));
     app.ngOnInit();
     expect(app.tree).toEqual( DUMMY_TREE );
+  });
+
+  it("should have 'check-tree' " , () => {
+    expect(fixture.debugElement.nativeElement.querySelector('[data-test="check-tree"]')).not.toBe(null);
   });
 });
