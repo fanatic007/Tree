@@ -36,7 +36,7 @@ describe('TreeComponent', () => {
   });
 
   it('should show 3 LI s if collapsible but open for our dummy data', () => {
-    component.node = DUMMY_TREE_DATA;
+    component.node = DUMMY_RESPONSE_DATA;
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelectorAll('li').length).toEqual(3);
     component.collapsible=true;
@@ -64,4 +64,17 @@ describe('TreeComponent', () => {
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelectorAll('input').length).toEqual(3);
   });
+
+  it('should show 3 checked checkboxes if they are checked in dummy data', () => {
+    component.node = DUMMY_TREE_DATA;
+    component.selectable = true;
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelectorAll('input:checked').length).toEqual(3);
+    let openChildren = DUMMY_TREE_DATA ;
+    openChildren.children[0].selected = false;
+    component.node = openChildren;
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelectorAll('input:checked').length).toEqual(2);
+  });
+
 });

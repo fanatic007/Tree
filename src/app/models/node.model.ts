@@ -3,13 +3,15 @@ export interface Node {
   children: Array<Node>;
   open?: boolean;
   selected?: boolean;
+  address?: string;
 }
 
 export const DUMMY_RESPONSE_DATA: Node = { source: 'AGROSTAR', children :[{ source:'INHOUSE',children:[] },{ source:'AWAY',children:[] }] };
 export const DUMMY_TREE_DATA: Node = { 
   source: 'AGROSTAR',
+  selected: true,
   children :[
-    { source:'INHOUSE',children:[], open: true },
-    { source:'AWAY',children:[] , open: true}
+    { source:'OUSE',children:[], open: true, selected: true },
+    { source:'AWAY',children:[] , open: true, selected: true}
   ]
 };
