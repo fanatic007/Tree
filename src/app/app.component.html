@@ -1,1 +1,1 @@
-<tree data-test="check-tree" [node]="tree?.responseData" [collapsible]="true" [selectable]="true"></tree>
+<tree data-test="check-tree" [node]="tree?.responseData" [collapsible]="true" [selectable]="true" (selectionChanged)="selectionChanged($event)"></tree>

@@ -1,6 +1,5 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Node } from "../../models/node.model";
-import { Observable } from "rxjs";
 
 @Component({
   selector: 'tree',
@@ -12,6 +11,7 @@ export class TreeComponent implements OnChanges {
   @Input() node:Node;
   @Input() selectable:boolean = false;
   @Input() collapsible:boolean = false;
+  @Output() selectionChanged:EventEmitter<Node> = new EventEmitter();
 
   constructor() { }
 
@@ -64,5 +64,6 @@ export class TreeComponent implements OnChanges {
       }
       node = node.children[ +childNode.address.charAt(i) ];
     }
+    this.selectionChanged.emit(this.node);
   }
 }

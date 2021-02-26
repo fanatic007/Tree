@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TreeComponent } from './tree.component';
 import { DUMMY_RESPONSE_DATA, DUMMY_TREE_DATA } from "../../models/node.model";

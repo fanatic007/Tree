@@ -17,4 +17,6 @@ export class AppComponent implements OnInit{
       this.tree = tree;
     });
   }
+  selectionChanged(e){console.log(e);
+  }
 }
