@@ -17,6 +17,10 @@ describe('TreeComponent', () => {
     fixture.detectChanges();
   });
 
+  afterEach(()=>{
+
+  });
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
@@ -76,5 +80,4 @@ describe('TreeComponent', () => {
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelectorAll('input:checked').length).toEqual(2);
   });
-
 });

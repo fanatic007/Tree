@@ -23,22 +23,24 @@ export class TreeComponent implements OnChanges {
 
   addMissingFields(node:Node, parentAddress:string , index:number) {
     node['address'] = parentAddress  + index;
-    (!node['open']) && (node['open']=!this.collapsible);
-    (this.selectable && !node['selected']) && (node['selected']=false);
+    (!node['open']) && (node['open']=true);
+    (this.selectable && !node['selected']) && (node['selected']=true);
+    node['selectedChildrenCount'] = node.children.length;
     let i = 0;
     node.children.forEach(childNode => {
       this.addMissingFields(childNode,node['address'],i++);
     });
   };
 
-  changed($event,node:Node){
-    let checked = $event.target.checked;
+  changed($event: Event,node:Node){
+    let checked = (<HTMLInputElement>$event.target).checked;
     this.setChildren(node ,checked);
     this.setParent(node,checked);
   }
 
   setChildren(node:Node, checked:boolean){
     node.selected = checked;
+    checked?  ++node.selectedChildrenCount : --node.selectedChildrenCount;
     node.children.forEach(childNode => {
       childNode.selected = checked;
       this.setChildren(childNode,checked);
@@ -49,11 +51,15 @@ export class TreeComponent implements OnChanges {
     let node = this.node;
     for(let i = 1; i<childNode.address.length; i++ ){
       if(checked){
-        let allChecked = true;
-        node.children.forEach(n => { allChecked = allChecked && n.selected })
-        allChecked && (node.selected = true, this.setParent(node, checked) );
+        let selectedChildrenCount = 0;
+        node.children.forEach(n => { n.selected && (selectedChildrenCount++) })
+        if(selectedChildrenCount == node.children.length){
+          node.selected = true, this.setParent(node, checked) 
+        };
+        node.selectedChildrenCount = selectedChildrenCount;
       }
       else{
+        node.selectedChildrenCount --;
         node.selected = false;
       }
       node = node.children[ +childNode.address.charAt(i) ];

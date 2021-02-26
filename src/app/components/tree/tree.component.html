@@ -3,7 +3,7 @@
     <ng-template #treeViewList let-list>
         <ul>
             <li *ngFor="let node of list;let i = index">
-                <input *ngIf="selectable" [id]="node.source +'_'+ i" type="checkbox" [(checked)]="node.selected" (change)="changed($event,node)"/>
+                <input *ngIf="selectable" [id]="node.source +'_'+ i" type="checkbox" [indeterminate]="node.selectedChildrenCount > 0 && node.selectedChildrenCount < node.children.length" [(checked)]="node.selected" (change)="changed($event,node)"/>
                 <label [for]="node.source +'_'+ i">{{node.source}}</label>
                 <span [hidden]="this.collapsible && node.children.length == 0">
                   <a *ngIf= "!node.open" (click)="node.open = true">(+)</a>
