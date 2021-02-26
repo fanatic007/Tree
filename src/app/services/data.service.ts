@@ -8,7 +8,7 @@ import { Tree } from '../models/tree.model';
 })
 export class DataService {
 
-  private DATA_URL = "http://www.mocky.io/v2/5cff79fc3200007100eac68f";  
+  private DATA_URL = "https://www.mocky.io/v2/5cff79fc3200007100eac68f";  
   
   constructor(private httpClient: HttpClient) { }
 
